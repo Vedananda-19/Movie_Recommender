@@ -2,7 +2,13 @@
 
 function MoviesPage (){
     return(
-        <div>Movies</div>
+        <div>
+            <div><h1>Movies</h1></div>
+            <div className="moviesGrid">
+                
+            </div>
+        </div>
+
     )
 }
 
