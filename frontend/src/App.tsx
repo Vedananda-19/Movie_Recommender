@@ -4,13 +4,13 @@ import HomePage from "./Pages/HomePage";
 import MoviesPage from "./Pages/MoviesPage";
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/Registerpage";
+import { AuthContextProvider } from "./Context/AuthContext";
 
 const router = createBrowserRouter([
     {
         element: <MainLayout />,
         children: [
             { path: "/", element: <HomePage /> },
-            // this will be in a protected route using <ProtectedRoute>
             { path: "/movies", element: <MoviesPage /> },
             // routed from home
             { path: "/login", element: <LoginPage /> },
@@ -20,7 +20,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-    return <RouterProvider router={router} />;
+    return (
+        <AuthContextProvider>
+            <RouterProvider router={router} />
+        </AuthContextProvider>
+    );
 }
 
 export default App;

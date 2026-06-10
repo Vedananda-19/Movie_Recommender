@@ -17,7 +17,6 @@ def register_user(data:UserModel,db:Session):
 
     db.add(new_user)
     db.commit()
-    db.refresh(new_user)
 
     return {"message":"successful"}
 
@@ -39,6 +38,8 @@ def create_access_token(user:User|None):
     encode_data = {'sub':user.username,'id':user.id}
     expiry = datetime.now(timezone.utc) + expires_delta
     encode_data.update({'exp':expiry})
-    return jwt.encode(encode_data,JWT_SECRET_KEY,algorithm=ALGORITHM)
+    access_token = jwt.encode(encode_data,JWT_SECRET_KEY,algorithm=ALGORITHM)
+    token = Token(access_token=access_token,token_type="bearer")
+    return token
     
     

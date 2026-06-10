@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 
-export function NavBar() {
+function NavBar({ isAuthenticated }: { isAuthenticated: Boolean }) {
     const navigate = useNavigate();
     const location = useLocation();
     return (
@@ -15,29 +15,17 @@ export function NavBar() {
                 className={`navbarEl ${location.pathname === "/movies" ? "active" : ""}`}
                 onClick={() => navigate("/movies")}
             >
-               Movies
+                Movies
             </div>
+            {
+                !isAuthenticated && 
+                <div className={`navbarEl ${["/login","/register"].includes(location.pathname) ? "active" : ""}`}>
+                    <button onClick={() => navigate("/login")}>Login</button>
+                    <button onClick={() => navigate("/register")}>Register</button>
+                </div>
+            }
         </div>
     );
 }
 
-export function SideBar() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    return (
-        <div className="sidebar">
-            <div
-                className={`sidebarEl ${location.pathname === "/" ? "active" : ""}`}
-                onClick={() => navigate("/")}
-            >
-                Home
-            </div>
-            <div
-                className={`sidebarEl ${location.pathname === "/movies" ? "active" : ""}`}
-                onClick={() => navigate("/movies")}
-            >
-                Movies
-            </div>
-        </div>
-    );
-}
+export default NavBar;

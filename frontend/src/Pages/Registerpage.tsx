@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import api from "../apis/api";
 
 function RegisterPage() {
@@ -13,6 +12,7 @@ function RegisterPage() {
     const [errorMsg, setErrorMsg] = useState<string>("");
     const [usersList, setUsersList] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const navigate = useNavigate()
 
     const getUsersList = async () => {
         try {
@@ -47,6 +47,16 @@ function RegisterPage() {
         else setErrorMsg("");
     }, [formData["password"], formData["confirmPassword"]]);
 
+    const resetForm = () => {
+        setFormData({
+            username: "",
+            password: "",
+            confirmPassword: "",
+            dob: "",
+        })
+        setErrorMsg("")
+    }
+
     async function handleRegister(e: React.SubmitEvent) {
         e.preventDefault();
         try {
@@ -55,7 +65,8 @@ function RegisterPage() {
                 formData,
             );
             console.log(response.data);
-            setErrorMsg("")
+            navigate("/login")
+            resetForm()
         } catch (error) {
             console.log(error);
             setErrorMsg("An Error Occured")
