@@ -1,12 +1,25 @@
 import { useState } from "react";
 import { Link,useNavigate } from "react-router-dom"
+import api from "../apis/api"
 
 function LoginPage(){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
-    function handleLogin(){
-        
+    async function handleLogin(e:React.SubmitEvent){
+        e.preventDefault()
+        try{
+            const response = await api.post(`/auth/login`,{username:username,password:password})
+            console.log(response.data)
+            const token = response.data
+            console.log(token)
+            localStorage.setItem("access_token",token)
+            setErrorMsg("")
+        }
+        catch(error){
+            console.log(error)
+            setErrorMsg("An Error Occured")
+        }
     }
     return(
          <div className="backgroundDiv">

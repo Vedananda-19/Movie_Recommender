@@ -16,33 +16,55 @@ function RegisterPage() {
 
     const getUsersList = async () => {
         try {
-            const response = await axios.get(`${api}/get-users`);
+            const response = await api.get(
+                "/auth/get-users",
+            );
             setUsersList(response.data);
+            console.log(response.data);
             setIsLoading(false);
+            setErrorMsg("")
         } catch (error) {
             console.log("An Error Occured");
+            setErrorMsg("An Error Occured")
         }
     };
 
     useEffect(() => {
         getUsersList();
     }, []);
+
     useEffect(() => {
         !isLoading && usersList.includes(formData.username)
             ? setErrorMsg("Username Already Exists")
             : setErrorMsg("");
     }, [formData["username"]]);
+
     useEffect(() => {
-        if (formData.password === formData.confirmPassword)
+        const cp = formData.confirmPassword;
+        const p = formData.password;
+        if (cp && cp.length === p.length && cp !== p)
             setErrorMsg("Passwords do not Match");
         else setErrorMsg("");
     }, [formData["password"], formData["confirmPassword"]]);
 
-    function handleRegister() {}
+    async function handleRegister(e: React.SubmitEvent) {
+        e.preventDefault();
+        try {
+            const response = await api.post(
+                `/auth/register`,
+                formData,
+            );
+            console.log(response.data);
+            setErrorMsg("")
+        } catch (error) {
+            console.log(error);
+            setErrorMsg("An Error Occured")
+        }
+    }
     return (
         <div className="backgroundDiv">
             <div className="centerCard">
-                <form className="authForm" onSubmit={handleRegister}>
+                <form className="authForm" onSubmit={(e) => handleRegister(e)}>
                     <input
                         type="text"
                         placeholder="username"
