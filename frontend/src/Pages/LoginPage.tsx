@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link,useNavigate } from "react-router-dom"
+import { Link,useNavigate,useLocation } from "react-router-dom"
 import api from "../apis/api"
 import useAuth from "../hooks/useAuth";
 
@@ -9,6 +9,7 @@ function LoginPage(){
     const [errorMsg, setErrorMsg] = useState("");
     const {login} = useAuth()!
     const navigate = useNavigate()
+    const location = useLocation()
 
     const resetForm = () => {
         setUsername("")
@@ -23,7 +24,7 @@ function LoginPage(){
             const token = response.data
             console.log(token)
             login(token)
-            navigate("/movies")
+            location.state?.from ? navigate(location.state.from) : navigate("/movies")
             resetForm()
         }
         catch(error){

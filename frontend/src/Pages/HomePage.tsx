@@ -6,7 +6,7 @@ function HomePage (){
         <div>Home
             <button onClick={() => navigate("/login")}>Login</button>
             <button onClick={() => navigate("/register")}>Register</button>
-            <button onClick={() => navigate("/Movies")}>Movies</button>
+            <button onClick={() => navigate("/movies")}>Movies</button>
         </div>
     )
 }
