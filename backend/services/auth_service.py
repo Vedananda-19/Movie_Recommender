@@ -1,5 +1,5 @@
 from fastapi import HTTPException,Depends
-from .auth_model import User,UserModel,LoginModel,Token
+from models.auth_models import User,UserModel,LoginModel,Token
 from sqlalchemy.orm import Session
 from jose import jwt
 from datetime import datetime,timedelta,timezone

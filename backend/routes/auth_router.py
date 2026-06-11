@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Depends,status
-from . import auth_service
-from .auth_model import UserModel,LoginModel
+from services import auth_service
+from models.auth_models import UserModel,LoginModel
 from database import db_dependency
 
 auth_router = APIRouter(
