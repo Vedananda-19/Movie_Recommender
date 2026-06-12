@@ -9,13 +9,13 @@ type MovieType = {
 };
 
 function MovieRow({ movies }: { movies: MovieType[] }) {
-  return (
-    <div className="movie-row">
-      {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
-    </div>
-  );
+    return (
+        <div className="movie-row">
+            {movies.map((movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+            ))}
+        </div>
+    );
 }
 
 export default MovieRow;

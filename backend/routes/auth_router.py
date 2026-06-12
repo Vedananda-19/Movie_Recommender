@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Depends,status
 from services import auth_service
-from models.auth_models import UserModel,LoginModel
+from models import UserModel,LoginModel
 from database import db_dependency
 
 auth_router = APIRouter(
@@ -19,9 +19,5 @@ def get_usersnames_list(db:db_dependency):
 @auth_router.post("/login")
 def login(data:LoginModel,db:db_dependency):
     return auth_service.check_login(data,db)
-
-@auth_router.get("/verify-token",status_code=status.HTTP_200_OK)
-def verify_token():
-    return "successful"
 
 

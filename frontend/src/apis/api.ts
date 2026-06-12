@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
 
 
 const api = axios.create({
@@ -14,5 +13,13 @@ api.interceptors.request.use((config) => {
     }
     return config
 })
+
+api.interceptors.response.use((response) => (response),
+    (error) => {
+        if (error.status?.status==401){
+            localStorage.removeItem("access_token")
+        }
+    }
+)
 
 export default api

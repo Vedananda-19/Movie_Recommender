@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 import httpx
-from models.tmdb_models import MovieCard
+from models import MovieCard
 import os
 import asyncio
 

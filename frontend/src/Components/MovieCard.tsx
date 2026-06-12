@@ -7,6 +7,9 @@ type MovieType = {
 };
 
 function MovieCard({ movie }: {movie:MovieType}) {
+    const likeMovie = () => {
+        
+    }
     return (
         <div className="movie-card">
             <img
@@ -29,6 +32,9 @@ function MovieCard({ movie }: {movie:MovieType}) {
                             ? new Date(movie.release_date).getFullYear()
                             : "Unknown"}
                     </span>
+                </div>
+                <div className="movie-buttons">
+                    <button onClick={likeMovie}>Like</button>
                 </div>
             </div>
         </div>
