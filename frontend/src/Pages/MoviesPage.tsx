@@ -1,9 +1,5 @@
-import useAuth from "../hooks/useAuth";
-import api from "../apis/api";
-import useRedirectUnauth from "../hooks/useRedirectUnauth";
 import MovieRow from "../Components/MovieRow";
 import useHomeMovies from "../hooks/useHomeMovies";
-import { useState, useEffect } from "react";
 
 
 function MoviesPage() {
