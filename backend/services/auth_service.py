@@ -14,7 +14,7 @@ oAuth2Scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 def register_user(data:UserModel,db:Session):
     existing = db.query(Users).filter(Users.username==data.username).first()
     if existing:
-        raise HTTPException(409,"Users ALready Exists")
+        raise HTTPException(409,"Users Already Exists")
     
     new_user = Users(username=data.username,password=data.password,dob=data.dob)
 

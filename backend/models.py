@@ -1,7 +1,8 @@
 from database import Base
-from sqlalchemy import Column,Integer,String,Float,Boolean,ForeignKey
+from sqlalchemy import Column,Integer,String,Boolean,ForeignKey,Date,DateTime
 from sqlalchemy.orm import relationship
 from pydantic import BaseModel,Field
+from datetime import date
 import uuid
 
 class Users(Base):
@@ -10,7 +11,7 @@ class Users(Base):
     id = Column(String,primary_key=True,default=lambda:str(uuid.uuid4()))
     username = Column(String,unique=True)
     password = Column(String)
-    dob = Column(String)
+    dob = Column(Date)
 
     user_movies = relationship("UserMovies",back_populates="user")
 
@@ -24,13 +25,14 @@ class UserMovies(Base):
     liked = Column(Boolean)
     watchlisted = Column(Boolean)
     watched = Column(Boolean)
+    interacted_date = Column(DateTime,nullable=True)
 
     user = relationship("Users",back_populates="user_movies")
 
 class UserModel(BaseModel):
     username : str
     password : str
-    dob : str
+    dob : date
 
 class LoginModel(BaseModel):
     username : str

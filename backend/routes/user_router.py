@@ -36,3 +36,7 @@ def watchlisted_movies(user:user_dependency,db:db_dependency):
 @user_router.get("/watched-movies")
 def watched_movies(user:user_dependency,db:db_dependency):
     return user_service.get_watched_movies(user,db)
+
+@user_router.get("/recommended-movies")
+async def recommended_movies(user:user_dependency,db:db_dependency):
+    return user_service.recommend_movies(user,db)
