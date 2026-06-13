@@ -27,9 +27,9 @@ function LoginPage(){
             location.state?.from ? navigate(location.state.from) : navigate("/movies")
             resetForm()
         }
-        catch(error){
+        catch(error:any){
             console.log(error)
-            setErrorMsg("An Error Occured")
+            setErrorMsg(error.response?.data?.detail ?? "Login Failed")
         }
     }
     return(

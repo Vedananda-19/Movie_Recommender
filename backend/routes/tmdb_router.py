@@ -3,8 +3,11 @@ import httpx
 from models import MovieCard
 import os
 import asyncio
+from dotenv import load_dotenv
 
 tmdb_router = APIRouter(prefix="/tmdb",tags=["tmdb"])
+load_dotenv()
+print(os.getenv("TMDB_ACCESS_KEY"))
 
 api = "https://api.themoviedb.org/3"
 headers = {"Authorization":f"Bearer {os.getenv('TMDB_ACCESS_KEY')}"}

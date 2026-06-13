@@ -23,6 +23,7 @@ export function AuthContextProvider({ children }: { children: ReactElement }) {
     }, []);
     useEffect(() => {
         if (accessToken) {
+            checkAuth()
             localStorage.setItem(
                 "access_token",
                 JSON.stringify(accessToken)
@@ -44,7 +45,7 @@ export function AuthContextProvider({ children }: { children: ReactElement }) {
     const checkAuth = async () => {
         if (!accessToken) logout()
         try{
-            const response = await api.get("/auth/me")
+            const response = await api.get("/user/me")
             setUser(response.data)
         }
         catch(error:any){

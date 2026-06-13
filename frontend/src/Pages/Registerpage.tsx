@@ -45,7 +45,7 @@ function RegisterPage() {
         if (cp && cp.length === p.length && cp !== p)
             setErrorMsg("Passwords do not Match");
         else setErrorMsg("");
-    }, [formData["password"], formData["confirmPassword"]]);
+    }, [formData["confirmPassword"]]);
 
     const resetForm = () => {
         setFormData({

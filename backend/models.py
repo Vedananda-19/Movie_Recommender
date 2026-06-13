@@ -21,7 +21,9 @@ class UserMovies(Base):
     id = Column(Integer,primary_key=True)
     user_id = Column(String, ForeignKey("users.id"))
     movie_id = Column(Integer)
-    status = Column(String)#Liked/Watched/Watchlisted
+    liked = Column(Boolean)
+    watchlisted = Column(Boolean)
+    watched = Column(Boolean)
 
     user = relationship("Users",back_populates="user_movies")
 

@@ -3,10 +3,10 @@ import NavBar from "../Components/NavBar"
 import useAuth from "../hooks/useAuth";
 
 function MainLayout(){
-    const { accessToken } = useAuth()!
+    const { user } = useAuth()!
     return(
         <div className="mainLayout">
-            <NavBar isAuthenticated={Boolean(accessToken)}/>
+            <NavBar isAuthenticated={Boolean(user)}/>
             <Outlet />
         </div>
     )

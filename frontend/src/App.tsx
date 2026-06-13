@@ -4,6 +4,8 @@ import HomePage from "./Pages/HomePage";
 import MoviesPage from "./Pages/MoviesPage";
 import LoginPage from "./Pages/LoginPage";
 import RegisterPage from "./Pages/Registerpage";
+import ProtectedRoute from "./Routes/ProtectedRoute";
+import UserProfile from "./Pages/UserProfile";
 import { AuthContextProvider } from "./Context/AuthContext";
 
 const router = createBrowserRouter([
@@ -15,6 +17,9 @@ const router = createBrowserRouter([
             // routed from home
             { path: "/login", element: <LoginPage /> },
             { path: "/register", element: <RegisterPage /> },
+            {element:<ProtectedRoute />,children:[
+                {path:"/profile", element:<UserProfile />}
+            ]},
         ],
     },
 ]);

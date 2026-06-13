@@ -1,3 +1,8 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import api from "../apis/api";
+import useLikedMovies from "../hooks/useLikedMovies";
+import useLikeMovie from "../hooks/useLikeMovie";
+
 type MovieType = {
     id: number;
     title: string;
@@ -6,10 +11,11 @@ type MovieType = {
     release_date?: string;
 };
 
-function MovieCard({ movie }: {movie:MovieType}) {
-    const likeMovie = () => {
-        
-    }
+function MovieCard({ movie }: { movie: MovieType }) {
+    const { data: likedMovieIds, status: likedStatus } = useLikedMovies();
+
+    const likeMovie = useLikeMovie();
+
     return (
         <div className="movie-card">
             <img
@@ -34,7 +40,16 @@ function MovieCard({ movie }: {movie:MovieType}) {
                     </span>
                 </div>
                 <div className="movie-buttons">
-                    <button onClick={likeMovie}>Like</button>
+                    {likedStatus == "success" ? (
+                        <button
+                            className={`likeBtn ${likedMovieIds.includes(movie.id) && "active"}`}
+                            onClick={async () => likeMovie(movie.id)}
+                        >
+                            Like
+                        </button>
+                    ) : (
+                        <p>{`${likedStatus.slice(0, 3)}..`}</p>
+                    )}
                 </div>
             </div>
         </div>
