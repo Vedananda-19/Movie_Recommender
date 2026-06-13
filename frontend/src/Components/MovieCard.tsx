@@ -1,7 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import api from "../apis/api";
-import useLikedMovies from "../hooks/useLikedMovies";
-import useLikeMovie from "../hooks/useLikeMovie";
+import useUserMovies from "../hooks/useUserMovies";
+import useUpdateUserMovie from "../hooks/useUpdateUserMovie";
 
 type MovieType = {
     id: number;
@@ -11,10 +9,20 @@ type MovieType = {
     release_date?: string;
 };
 
-function MovieCard({ movie }: { movie: MovieType }) {
-    const { data: likedMovieIds, status: likedStatus } = useLikedMovies();
+function MovieCard({
+    movie,
+    isLoading,
+}: {
+    movie: MovieType;
+    isLoading: Boolean;
+}) {
+    const { data: likedMoviesIds, status: likedStatus } = useUserMovies().likedMoviesQuery;
+    const { data: watchlistedMoviesIds, status: watchlistedStatus } = useUserMovies().watchlistedMoviesQuery;
+    const { data: watchedMoviesIds, status: watchedStatus } = useUserMovies().watchedMoviesQuery;
 
-    const likeMovie = useLikeMovie();
+    const {likeMovie,watchlistMovie,watchMovie} = useUpdateUserMovie();
+
+    if (isLoading) return <SkeletonCard />;
 
     return (
         <div className="movie-card">
@@ -42,13 +50,43 @@ function MovieCard({ movie }: { movie: MovieType }) {
                 <div className="movie-buttons">
                     {likedStatus == "success" ? (
                         <button
-                            className={`likeBtn ${likedMovieIds.includes(movie.id) && "active"}`}
-                            onClick={async () => likeMovie(movie.id)}
+                            className={`likeBtn ${likedMoviesIds.includes(movie.id) && "active"}`}
+                            onClick={() => likeMovie(movie.id)}
                         >
-                            Like
+                            {likedMoviesIds.includes(movie.id)
+                                ? "Unlike"
+                                : "Like"}
                         </button>
                     ) : (
                         <p>{`${likedStatus.slice(0, 3)}..`}</p>
+                    )}
+                </div>
+                <div className="movie-buttons">
+                    {watchlistedStatus == "success" ? (
+                        <button
+                            className={`likeBtn ${watchlistedMoviesIds.includes(movie.id) && "active"}`}
+                            onClick={() => watchlistMovie(movie.id)}
+                        >
+                            {watchlistedMoviesIds.includes(movie.id)
+                                ? "Unwatchlist"
+                                : "watchlist"}
+                        </button>
+                    ) : (
+                        <p>{`${watchlistedStatus.slice(0, 3)}..`}</p>
+                    )}
+                </div>
+                <div className="movie-buttons">
+                    {watchedStatus == "success" ? (
+                        <button
+                            className={`likeBtn ${watchedMoviesIds.includes(movie.id) && "active"}`}
+                            onClick={() => watchMovie(movie.id)}
+                        >
+                            {watchedMoviesIds.includes(movie.id)
+                                ? "Not Watched"
+                                : "Watched"}
+                        </button>
+                    ) : (
+                        <p>{`${watchedStatus.slice(0, 3)}..`}</p>
                     )}
                 </div>
             </div>
@@ -57,3 +95,24 @@ function MovieCard({ movie }: { movie: MovieType }) {
 }
 
 export default MovieCard;
+
+function SkeletonCard() {
+    return (
+        <div className="movie-card">
+            <div className="movie-poster skeleton"></div>
+
+            <div className="movie-info">
+                <div className="skeleton skeleton-title"></div>
+
+                <div className="movie-meta">
+                    <div className="skeleton skeleton-meta"></div>
+                    <div className="skeleton skeleton-meta"></div>
+                </div>
+
+                <div className="movie-buttons">
+                    <div className="skeleton skeleton-button"></div>
+                </div>
+            </div>
+        </div>
+    );
+}

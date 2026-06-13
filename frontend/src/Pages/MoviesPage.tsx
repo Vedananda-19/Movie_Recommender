@@ -8,47 +8,49 @@ import { useState, useEffect } from "react";
 
 function MoviesPage() {
     const { data, isLoading, isError } = useHomeMovies();
-    const movies = data
+
+    const movies = data;
+
     return (
         <div>
             <div>
                 <h1>Movies</h1>
             </div>
+
             {isError ? (
                 <h2>An Error Occured While Loading Movies</h2>
             ) : (
                 <div className="homeMovies">
                     <div>
                         <h1>Popular</h1>
-                        {isLoading ? (
-                            <h2>Loading...</h2>
-                        ) : (
-                            <MovieRow movies={movies.popular} />
-                        )}
+                        <MovieRow
+                            movies={movies?.popular ?? []}
+                            isLoading={isLoading}
+                        />
                     </div>
+
                     <div>
                         <h1>Top Rated</h1>
-                        {isLoading ? (
-                            <h2>Loading...</h2>
-                        ) : (
-                            <MovieRow movies={movies.top_rated} />
-                        )}
+                        <MovieRow
+                            movies={movies?.top_rated ?? []}
+                            isLoading={isLoading}
+                        />
                     </div>
+
                     <div>
                         <h1>Now Playing</h1>
-                        {isLoading ? (
-                            <h2>Loading...</h2>
-                        ) : (
-                            <MovieRow movies={movies.now_playing} />
-                        )}
+                        <MovieRow
+                            movies={movies?.now_playing ?? []}
+                            isLoading={isLoading}
+                        />
                     </div>
+
                     <div>
                         <h1>Upcoming</h1>
-                        {isLoading ? (
-                            <h2>Loading...</h2>
-                        ) : (
-                            <MovieRow movies={movies.upcoming} />
-                        )}
+                        <MovieRow
+                            movies={movies?.upcoming ?? []}
+                            isLoading={isLoading}
+                        />
                     </div>
                 </div>
             )}

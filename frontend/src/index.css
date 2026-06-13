@@ -129,3 +129,48 @@
 .movie-row::-webkit-scrollbar-track {
   background: transparent;
 }
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #31363f;
+  border-radius: 8px;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.08),
+    transparent
+  );
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 90%;
+  margin-top: 4px;
+}
+
+.skeleton-meta {
+  height: 14px;
+  width: 50px;
+}
+
+.skeleton-button {
+  height: 32px;
+  width: 80px;
+  margin-top: 12px;
+  border-radius: 6px;
+}

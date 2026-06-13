@@ -2,6 +2,7 @@ from fastapi import APIRouter,Depends,status
 from services import auth_service
 from models import UserModel,LoginModel
 from database import db_dependency
+from fastapi.security import OAuth2PasswordRequestForm
 
 auth_router = APIRouter(
     prefix="/auth",
@@ -17,7 +18,7 @@ def get_usersnames_list(db:db_dependency):
     return auth_service.get_usernames_list(db)
 
 @auth_router.post("/login")
-def login(data:LoginModel,db:db_dependency):
-    return auth_service.check_login(data,db)
+def login(db:db_dependency,formData:OAuth2PasswordRequestForm = Depends()):
+    return auth_service.check_login(formData,db)
 
 

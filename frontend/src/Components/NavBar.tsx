@@ -17,6 +17,12 @@ function NavBar({ isAuthenticated }: { isAuthenticated: Boolean }) {
             >
                 Movies
             </div>
+            <div
+                className={`navbarEl ${location.pathname === "/profile" ? "active" : ""}`}
+                onClick={() => navigate("/profile")}
+            >
+                Profile
+            </div>
             {
                 !isAuthenticated && 
                 <div className={`navbarEl ${["/login","/register"].includes(location.pathname) ? "active" : ""}`}>
