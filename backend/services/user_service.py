@@ -1,4 +1,5 @@
 from models import Users,UserMovies
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 import asyncio
 from datetime import datetime
@@ -84,7 +85,7 @@ async def recommend_user_movies(user:Users,db:Session):
         return []
 
     picked_ids = set(picked_movie_ids)
-    random_movies = [movie_id for (movie_id,) in db.query(UserMovies.movie_id).filter(UserMovies.user_id == user.id,~UserMovies.movie_id.in_(picked_ids)).limit(5).all()]
+    random_movies = [movie_id for (movie_id,) in db.query(UserMovies.movie_id).filter(UserMovies.user_id == user.id,UserMovies.interacted_date!=None,~UserMovies.movie_id.in_(picked_ids)).order_by(func.random()).limit(5).all()]
     picked_movie_ids += random_movies
 
     movie_seeds = random.sample(picked_movie_ids,min(10,len(picked_movie_ids)))

@@ -15,6 +15,9 @@ button { cursor: pointer; }
   background: #222831;
 }
 
+.layoutContent { flex: 1; display: flex; min-height: 0; }
+.routeContent { flex: 1; min-width: 0; display: flex; }
+
 .navbar {
   position: sticky;
   top: 0;
@@ -45,6 +48,29 @@ button { cursor: pointer; }
 .navbarEl:hover, .navbarEl.active { color: #fff; background: #222831; }
 .navbarAuth { margin-left: auto; }
 
+.moviesSidebar {
+  width: 210px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px 12px;
+  background: #1b2027;
+  border-right: 1px solid #ffffff0d;
+}
+
+.sidebarEl {
+  padding: 13px 14px;
+  color: #aeb7c2;
+  border-left: 3px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.sidebarEl:hover { color: #eeeeee; background: #2d3440; }
+.sidebarEl.active { color: #ffffff; background: #2d3440; border-left-color: #00adb5; }
+
 .navbar button, .heroActions button, .authForm button, .movie-buttons button {
   border: 0;
   border-radius: 7px;
@@ -74,6 +100,8 @@ button:hover { filter: brightness(1.12); }
 .movieSection { min-width: 0; }
 .movieSection h1, .movieSection h2 { margin-bottom: 12px; font-size: 1.3rem; }
 .movie-row { display: flex; gap: 16px; overflow-x: auto; padding: 4px 4px 18px; scrollbar-color: #00adb5 #2d3440; }
+.movie-row.movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); overflow: visible; }
+.movie-grid .movie-card { width: 100%; }
 
 .movie-card {
   width: 210px;
@@ -114,6 +142,16 @@ button:hover { filter: brightness(1.12); }
 .profileSummary span { color: #aeb7c2; }
 .emptyState { display: grid; place-items: center; }
 
+.recommendationsPage { padding: 30px 24px 50px; }
+.recommendationsPage .movieSection { width: min(100%, 1200px); margin: 0 auto; }
+.recommendationsHeader { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+.recommendationsHeader h1 { margin-bottom: 5px; font-size: clamp(2rem, 5vw, 3rem); }
+.recommendationsHeader p, .recommendationsLoading p, .recommendationsEmpty p { color: #aeb7c2; }
+.refreshBtn { padding: 10px 14px; border: 0; border-radius: 7px; color: #172126; background: #00adb5; font-weight: 700; }
+.recommendationsLoading p { margin-bottom: 14px; }
+.recommendationsEmpty { width: min(520px, 100%); margin: auto; padding: 30px; text-align: center; border-radius: 14px; background: #2d3440; }
+.recommendationsEmpty h1 { margin-bottom: 8px; }
+
 .skeleton { position: relative; overflow: hidden; background: #3a4350; }
 .skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, #ffffff14, transparent); animation: shimmer 1.2s infinite; }
 .skeleton-title { width: 90%; height: 22px; margin-top: 4px; }
@@ -126,7 +164,14 @@ button:hover { filter: brightness(1.12); }
   .navbarEl { min-width: 0; padding: 0 7px; font-size: 0.82rem; }
   .navbarAuth { gap: 3px; }
   .navbarAuth button { padding: 7px 5px; font-size: 0.72rem; }
+  .withSidebar { flex-direction: column; }
+  .moviesSidebar { width: 100%; flex-direction: row; padding: 8px; overflow-x: auto; border-right: 0; }
+  .sidebarEl { flex: 1; min-width: max-content; text-align: center; border-left: 0; border-bottom: 3px solid transparent; }
+  .sidebarEl.active { border-left-color: transparent; border-bottom-color: #00adb5; }
   .pageContainer { padding: 22px 14px 40px; }
   .movie-card { width: 165px; flex-basis: 165px; }
+  .movie-row.movie-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .recommendationsPage { padding: 22px 14px 40px; }
+  .recommendationsHeader { align-items: flex-start; flex-direction: column; }
   .homePage { padding: 18px; }
 }

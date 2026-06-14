@@ -12,7 +12,7 @@ function NavBar({ isAuthenticated }: { isAuthenticated: Boolean }) {
                 Home
             </div>
             <div
-                className={`navbarEl ${location.pathname === "/movies" ? "active" : ""}`}
+                className={`navbarEl ${location.pathname.startsWith("/movies") ? "active" : ""}`}
                 onClick={() => navigate("/movies")}
             >
                 Movies

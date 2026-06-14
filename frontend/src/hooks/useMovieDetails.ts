@@ -10,9 +10,9 @@ type MovieType = {
 };
 
 
-export default function useMovieDetails(ids:number[]){
+export default function useMovieDetails(ids?:number[]){
     return useQueries({
-        queries:ids.map((id) => (
+        queries:(ids ?? []).map((id) => (
             {queryKey:["movie",id],
                 queryFn:async() => {
                     const response = await api.get(`tmdb/movie/${id}`)

@@ -13,15 +13,17 @@ type MovieRowProps = {
     movies?: MovieType[];
     isLoading?: boolean;
     queries?: UseQueryResult<MovieType>[];
+    layout?: "grid";
 };
 
 function MovieRow({
     movies = [],
     isLoading = false,
     queries,
+    layout,
 }: MovieRowProps) {
     return (
-        <div className="movie-row">
+        <div className={`movie-row ${layout === "grid" ? "movie-grid" : ""}`}>
             {isLoading ? (
                 Array.from({ length: 10 }).map((_, i) => (
                     <MovieCard
