@@ -97,7 +97,7 @@ Provides separate collections for liked, watched, and watchlisted movies.
 
 REST API endpoints handle authentication, user movie interactions, movie details, and personalized recommendations.
 
-![FastAPI Backend Routes](Screenshots/Backend%20Routes.png)
+![FastAPI Backend Routes](Screenshots/Routes.png)
 
 ### Authentication
 
