@@ -41,7 +41,6 @@ const router = createBrowserRouter(
             ],
         },
     ],
-    { basename: "/Movie_Recommender" },
 );
 
 function App() {

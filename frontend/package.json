@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "Vedananda-19-github-io/Movie_Recommender/",
+  "homepage": "https://movie-recommender-site-www4.onrender.com/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
