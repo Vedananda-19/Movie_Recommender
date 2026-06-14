@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-print(os.getenv("URL_DATABASE"))
 engine = create_engine(os.getenv("URL_DATABASE"))
 
 SessionLocal = sessionmaker(bind=engine)
