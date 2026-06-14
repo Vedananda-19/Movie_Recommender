@@ -2,6 +2,7 @@ import useAuth from "../hooks/useAuth";
 import useUserMovies from "../hooks/useUserMovies";
 import useMovieDetails from "../hooks/useMovieDetails";
 import MovieRow from "../Components/MovieRow";
+import { useNavigate } from "react-router-dom";
 
 type User = {
     id: string;
@@ -10,19 +11,27 @@ type User = {
 };
 
 function UserProfile() {
-    const { user } = useAuth() as { user: User };
+    const { user,logout } = useAuth() as { user: User,logout:()=>void };
+    const navigate = useNavigate()
     
     const { likedMoviesQuery, watchedMoviesQuery, watchlistedMoviesQuery } = useUserMovies();
 
     const likedMoviesQueries = useMovieDetails(likedMoviesQuery.data);//Getting Details form Ids
     const watchlistedMoviesQueries =  useMovieDetails(watchlistedMoviesQuery.data)
     const watchedMoviesQueries = useMovieDetails(watchedMoviesQuery.data)
+
+    const logoutUser = () => {
+        logout()
+        navigate("/home")
+    }
+
     return (
         <div className="themeBackground">
             <div className="pageContainer">
             <div className="pageHeader">
                 <h1>Profile</h1>
                 <p>Your personal movie collection.</p>
+                <button className="logoutBtn" onClick={()=>logoutUser()}>Logout</button>
             </div>
             <div className="profileSummary">
                 <span>Username</span>

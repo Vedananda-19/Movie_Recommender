@@ -17,10 +17,17 @@ function RecommendationsPage() {
     })
     if(rcmdMovies?.length===0) return (
         <div className="themeBackground recommendationsPage">
-            <div className="recommendationsEmpty">
+            {isFetching ? 
+                <div className="recommendationsLoading">
+                    <p>Refreshing recommendations...</p>
+                    <MovieRow isLoading={true} layout="grid" />
+                </div>
+                 : 
+                <div className="recommendationsEmpty">
                 <h1>No recommendations yet</h1>
                 <p>Like or watch some movies to help us find your next favorite.</p>
             </div>
+            }
         </div>
     )
 
