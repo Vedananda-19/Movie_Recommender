@@ -7,9 +7,10 @@ from database import Base,engine
 from dotenv import load_dotenv
 
 load_dotenv()
+allowed_origins = ["http://localhost:5173","https://movie-recommender-k7oq.onrender.com"]
 
 app = FastAPI()
-app.add_middleware(CORSMiddleware,allow_origins=["http://localhost:5173"],allow_credentials=True,allow_methods=['*'],allow_headers=['*'])
+app.add_middleware(CORSMiddleware,allow_origins=allowed_origins,allow_credentials=True,allow_methods=['*'],allow_headers=['*'])
 
 app.include_router(auth_router)
 app.include_router(tmdb_router)
