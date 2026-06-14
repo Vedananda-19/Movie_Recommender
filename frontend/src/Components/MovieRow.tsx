@@ -22,6 +22,7 @@ function MovieRow({
     queries,
     layout,
 }: MovieRowProps) {
+    // the movies are loading an error occured from queries,  Skeleton cards are diaplayed for better Styling
     return (
         <div className={`movie-row ${layout === "grid" ? "movie-grid" : ""}`}>
             {isLoading ? (
