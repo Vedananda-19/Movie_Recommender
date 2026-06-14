@@ -26,25 +26,28 @@ function UserProfile() {
     const watchlistedMoviesQueries =  useMovieDetails(watchlistedMoviesQuery.data)
     const watchedMoviesQueries = useMovieDetails(watchedMoviesQuery.data)
     return (
-        <div>
-            <div>
+        <div className="themeBackground">
+            <div className="pageContainer">
+            <div className="pageHeader">
                 <h1>Profile</h1>
+                <p>Your personal movie collection.</p>
             </div>
-            <div>
-                <h2>Username : </h2>
+            <div className="profileSummary">
+                <span>Username</span>
                 <h2>{user.username}</h2>
             </div>
-            <div>
+            <section className="movieSection">
                 <h2>Liked Movies</h2>
                 <MovieRow queries={likedMoviesQueries} />
-            </div>
-            <div>
+            </section>
+            <section className="movieSection">
                 <h2>WatchListed Movies</h2>
                 <MovieRow queries={watchlistedMoviesQueries} />
-            </div>
-            <div>
+            </section>
+            <section className="movieSection">
                 <h2>Watched Movies</h2>
                 <MovieRow queries={watchedMoviesQueries} />
+            </section>
             </div>
         </div>
     );

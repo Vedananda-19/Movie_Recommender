@@ -25,7 +25,7 @@ function NavBar({ isAuthenticated }: { isAuthenticated: Boolean }) {
             </div>
             {
                 !isAuthenticated && 
-                <div className={`navbarEl ${["/login","/register"].includes(location.pathname) ? "active" : ""}`}>
+                <div className={`navbarEl navbarAuth ${["/login","/register"].includes(location.pathname) ? "active" : ""}`}>
                     <button onClick={() => navigate("/login")}>Login</button>
                     <button onClick={() => navigate("/register")}>Register</button>
                 </div>

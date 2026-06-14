@@ -44,6 +44,10 @@ function LoginPage() {
         <div className="backgroundDiv">
             <div className="centerCard">
                 <form className="authForm" onSubmit={handleLogin}>
+                    <div className="formHeading">
+                        <h1>Welcome back</h1>
+                        <p>Login to manage your movies.</p>
+                    </div>
                     <input
                         type="text"
                         placeholder="username"
@@ -59,7 +63,7 @@ function LoginPage() {
                         required
                     />
                     <button type="submit">Login</button>
-                    {errorMsg && <p>{errorMsg}</p>}
+                    {errorMsg && <p className="errorMessage">{errorMsg}</p>}
                     <Link to="/register">
                         New User ? Click here to Register
                     </Link>

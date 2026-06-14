@@ -14,5 +14,5 @@ function ProtectedRoute(){
 export default ProtectedRoute
 
 function NotLoggedInPage(){
-    return <h1>Login to View</h1>
+    return <div className="themeBackground emptyState"><h1>Login to View</h1></div>
 }

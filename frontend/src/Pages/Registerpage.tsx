@@ -76,6 +76,10 @@ function RegisterPage() {
         <div className="backgroundDiv">
             <div className="centerCard">
                 <form className="authForm" onSubmit={(e) => handleRegister(e)}>
+                    <div className="formHeading">
+                        <h1>Create account</h1>
+                        <p>Start building your movie collection.</p>
+                    </div>
                     <input
                         type="text"
                         placeholder="username"
@@ -122,7 +126,7 @@ function RegisterPage() {
                         required
                     />
                     <button type="submit">Register</button>
-                    {errorMsg && <p>{errorMsg}</p>}
+                    {errorMsg && <p className="errorMessage">{errorMsg}</p>}
                 </form>
             </div>
         </div>

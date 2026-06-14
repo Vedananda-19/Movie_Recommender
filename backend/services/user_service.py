@@ -1,7 +1,9 @@
 from models import Users,UserMovies
 from sqlalchemy.orm import Session
-from httpx import AsyncClient
+import asyncio
 from datetime import datetime
+import random
+from routes.tmdb_router import fetch_recommendations
 
 def like_movie(movie_id:int,user:Users,db:Session):
     movie = db.query(UserMovies).filter(UserMovies.user_id==user.id,UserMovies.movie_id==movie_id).first()
@@ -69,9 +71,39 @@ def get_watched_movies(user:Users,db:Session):
     watched_movies_ids = [movie.movie_id for movie in watched_movies]
     return watched_movies_ids
 
-async def recommend_movies(user:Users,db:Session):
-    newly_liked_movies = db.query(UserMovies).filter(UserMovies.user_id==user.id,UserMovies.liked==True).order_by(UserMovies.interacted_date.desc()).limit(13)
-    newly_watchlisted_movies = db.query(UserMovies).filter(UserMovies.user_id==user.id,UserMovies.watchlisted==True).order_by(UserMovies.interacted_date.desc()).all(5)
-    newly_watched_movies = db.query(UserMovies).filter(UserMovies.user_id==user.id,UserMovies.watched==True).order_by(UserMovies.interacted_date.desc()).all(7)
-    picked_movies = newly_liked_movies + newly_watchlisted_movies + newly_watched_movies
+async def recommend_user_movies(user:Users,db:Session):
+    liked_ids = [movie_id for (movie_id,) in db.query(UserMovies.movie_id).filter(UserMovies.user_id == user.id, UserMovies.liked == True).order_by(UserMovies.interacted_date.desc()).limit(20).all()]
+    watchlisted_ids = [movie_id for (movie_id,) in db.query(UserMovies.movie_id).filter(UserMovies.user_id == user.id, UserMovies.watchlisted == True).order_by(UserMovies.interacted_date.desc()).limit(5).all()]
+    watched_ids = [movie_id for (movie_id,) in db.query(UserMovies.movie_id).filter(UserMovies.user_id == user.id, UserMovies.watched == True).order_by(UserMovies.interacted_date.desc()).limit(10).all()]
+
+    picked_movie_ids = picked_movie_ids = list(dict.fromkeys(
+        liked_ids + watchlisted_ids + watched_ids
+    ))
+
+    if not picked_movie_ids:
+        return []
+
+    picked_ids = set(picked_movie_ids)
+    random_movies = [movie_id for (movie_id,) in db.query(UserMovies.movie_id).filter(UserMovies.user_id == user.id,~UserMovies.movie_id.in_(picked_ids)).limit(5).all()]
+    picked_movie_ids += random_movies
+
+    movie_seeds = random.sample(picked_movie_ids,min(10,len(picked_movie_ids)))
+
+    recommendations = await asyncio.gather(
+        *(fetch_recommendations(movie_id) for movie_id in movie_seeds)
+    )
+    all_recommendations = []
+    for recs in recommendations:
+        all_recommendations.extend(recs)
+    random.shuffle(all_recommendations) 
+    seen = set()
+    unique_recommendations = []
+    for movie in all_recommendations:
+        if movie.id not in seen:
+            seen.add(movie.id)
+            unique_recommendations.append(movie)
+    return unique_recommendations[:min(20,len(unique_recommendations))]
+
+
+
 

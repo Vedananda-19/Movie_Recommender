@@ -71,8 +71,16 @@ async def load_movies_page():
     )
     return {"popular":popular,"top_rated":top_rated,"now_playing":now_playing,"upcoming":upcoming}
 
-@tmdb_router.get("/test")
-async def test():
+@tmdb_router.get("/recommend/{movie_id}")
+async def get_recommendations(movie_id: int,page:int = 1):
+    return await fetch_recommendations(movie_id,page)
+
+
+async def fetch_recommendations(movie_id: int,page:int = 1)->list[MovieCard]:
     async with httpx.AsyncClient() as client:
-        response = await client.get("https://www.google.com")
-        return {"status": response.status_code}
+        response = await client.get(
+            f"{api}/movie/{movie_id}/recommendations",headers=headers,params={"page":page}
+        )
+    data = response.json()
+    movies = [MovieCard.model_validate(movie) for movie in data["results"]]
+    return movies
