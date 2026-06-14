@@ -19,32 +19,27 @@ A full-stack movie discovery and recommendation application that helps users exp
 - React
 - TypeScript
 - TanStack Query
-- React Router
-- Axios
-- Vite
 
 ### Backend
 
 - FastAPI
 - SQLAlchemy
-- REST API
 - JWT authentication
-- TMDB API integration
+- TMDB API - Movie Database API
 
 ### Database
 
-- PostgreSQL / SQLite
+- PostgreSQL / SQLite(Development)
 
 ### Deployment
 
-- GitHub Pages (Frontend)
-- Render (Backend)
+- Render
 
 ## Live Demo
 
-Frontend: Movie Recommender
+Frontend: [Movie Recommender](https://movie-recommender-site-www4.onrender.com/)
 
-Backend API: `Render Link/docs`
+Backend API: [Backend Docs](https://movie-recommender-k7oq.onrender.com/docs)
 
 ## Project Structure
 
