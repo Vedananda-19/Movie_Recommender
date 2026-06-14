@@ -9,8 +9,7 @@ function HomePage (){
                 <h1>Find something worth watching.</h1>
                 <p>Explore popular releases, keep a watchlist, and save the movies you love.</p>
                 <div className="heroActions">
-                    <button onClick={() => navigate("/movies")}>Browse Movies</button>
-                    <button className="secondaryBtn" onClick={() => navigate("/login")}>Login</button>
+                    <button onClick={() => navigate("/login")}>Login</button>
                     <button className="secondaryBtn" onClick={() => navigate("/register")}>Register</button>
                 </div>
             </div>

@@ -9,14 +9,6 @@ type User = {
     password: string;
 };
 
-type MovieType = {
-    id: number;
-    title: string;
-    poster_path?: string;
-    rating?: number;
-    release_date?: string;
-};
-
 function UserProfile() {
     const { user } = useAuth() as { user: User };
     
